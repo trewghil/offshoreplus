@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.trewghil.offshoreplus.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "LocateCommandMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
