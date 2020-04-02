@@ -70,8 +70,10 @@ class OceanVillageStart extends StructureStart {
 
     private static final Identifier START = OffshorePlus.identify("start");
     private static final Identifier ANY = OffshorePlus.identify("any");
+    private static final Identifier ANY_NO_END = OffshorePlus.identify("any_no_end");
     private static final Identifier TERMINATORS = OffshorePlus.identify("terminators");
     private static final Identifier BUILDINGS = OffshorePlus.identify("buildings");
+    private static final Identifier GATHERINGS = OffshorePlus.identify("gatherings");
     private static final Identifier BOAT = OffshorePlus.identify("boat");
 
     private static final Identifier EMPTY = new Identifier("empty");
@@ -82,7 +84,7 @@ class OceanVillageStart extends StructureStart {
 
     @Override
     public void initialize(ChunkGenerator<?> chunkGenerator, StructureManager structureManager, int x, int z, Biome biome) {
-        StructurePoolBasedGenerator.addPieces(START, 8, OceanVillagePiece::new, chunkGenerator, structureManager, new BlockPos(x * 16, 150, z * 16), children, random);
+        StructurePoolBasedGenerator.addPieces(START, 9, OceanVillagePiece::new, chunkGenerator, structureManager, new BlockPos(x * 16, 150, z * 16), children, random);
         setBoundingBoxFromChildren();
 
         OceanVillageFenceGenerator fenceGenerator = new OceanVillageFenceGenerator(this.random, this.boundingBox);
@@ -112,14 +114,37 @@ class OceanVillageStart extends StructureStart {
                         StructurePool.Projection.RIGID
                 )
         );
+        StructurePoolBasedGenerator.REGISTRY.add(
+                new StructurePool(
+                        GATHERINGS,
+                        EMPTY,
+                        ImmutableList.of(
+                                Pair.of(new SinglePoolElement("offshoreplus:ocean_village/tavern"), 1),
+                                Pair.of(new SinglePoolElement("offshoreplus:ocean_village/market_square"), 1)
+                        ),
+                        StructurePool.Projection.RIGID
+                )
+        );
 
         StructurePoolBasedGenerator.REGISTRY.add(
                 new StructurePool(
                         ANY,
                         TERMINATORS,
                         ImmutableList.of(
-                                Pair.of(new SinglePoolElement("offshoreplus:ocean_village/plat_1", WET_WOOD_PROCESSOR), 1),
+                                Pair.of(new SinglePoolElement("offshoreplus:ocean_village/plat_1", WET_WOOD_PROCESSOR), 2),
                                 Pair.of(new SinglePoolElement("offshoreplus:ocean_village/plat_2", WET_WOOD_PROCESSOR), 1),
+                                Pair.of(new SinglePoolElement("offshoreplus:ocean_village/plat_3", WET_WOOD_PROCESSOR), 1),
+                                Pair.of(new SinglePoolElement("offshoreplus:ocean_village/plat_4", WET_WOOD_PROCESSOR), 1)
+                        ),
+                        StructurePool.Projection.RIGID
+                )
+        );
+        StructurePoolBasedGenerator.REGISTRY.add(
+                new StructurePool(
+                        ANY_NO_END,
+                        TERMINATORS,
+                        ImmutableList.of(
+                                Pair.of(new SinglePoolElement("offshoreplus:ocean_village/plat_1", WET_WOOD_PROCESSOR), 4),
                                 Pair.of(new SinglePoolElement("offshoreplus:ocean_village/plat_3", WET_WOOD_PROCESSOR), 1),
                                 Pair.of(new SinglePoolElement("offshoreplus:ocean_village/plat_4", WET_WOOD_PROCESSOR), 1)
                         ),
@@ -134,7 +159,7 @@ class OceanVillageStart extends StructureStart {
                         ImmutableList.of(
                                 Pair.of(new SinglePoolElement("offshoreplus:ocean_village/plat_2", WET_WOOD_PROCESSOR), 1),
                                 Pair.of(new SinglePoolElement("offshoreplus:ocean_village/dock_1", WET_WOOD_PROCESSOR), 2),
-                                Pair.of(new SinglePoolElement("offshoreplus:ocean_village/dock_2", WET_WOOD_PROCESSOR), 2)
+                                Pair.of(new SinglePoolElement("offshoreplus:ocean_village/dock_2", WET_WOOD_PROCESSOR), 4)
                         ),
                         StructurePool.Projection.RIGID
                 )
@@ -161,7 +186,8 @@ class OceanVillageStart extends StructureStart {
                                 Pair.of(new SinglePoolElement("offshoreplus:ocean_village/building_1"), 1),
                                 Pair.of(new SinglePoolElement("offshoreplus:ocean_village/building_2"), 1),
                                 Pair.of(new SinglePoolElement("offshoreplus:ocean_village/building_3"), 1),
-                                Pair.of(new SinglePoolElement("offshoreplus:ocean_village/building_4"), 1),
+                                //Pair.of(new SinglePoolElement("offshoreplus:ocean_village/building_4"), 1),
+                                Pair.of(new SinglePoolElement("offshoreplus:ocean_village/weaponmaker"), 1),
                                 Pair.of(new SinglePoolElement("offshoreplus:ocean_village/building_none"), 7)
                         ),
                         StructurePool.Projection.RIGID

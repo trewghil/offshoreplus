@@ -54,8 +54,6 @@ public class OceanVillageFenceGenerator extends StructurePieceWithDimensions {
 
         for(BlockPos edge : knownEdgeBlocks) {
             if(!isEdgeBlock(edge, world, true)) {
-                System.out.println("removing invalid fence at: " + edge.toString());
-
                 world.setBlockState(edge.up(), Blocks.AIR.getDefaultState(), 2);
             }
         }
