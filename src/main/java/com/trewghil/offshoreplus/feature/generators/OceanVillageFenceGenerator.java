@@ -68,7 +68,7 @@ public class OceanVillageFenceGenerator extends StructurePieceWithDimensions {
         Block block = world.getBlockState(pos).getBlock();
         BlockState above = world.getBlockState(pos.up());
 
-        if(block == Blocks.LADDER || block == Blocks.OAK_SLAB) return false;
+        if(block != Blocks.OAK_PLANKS && block != Blocks.SPRUCE_PLANKS) return false;
 
         if(!check) {
             if (world.getBlockState(pos).isAir()) {

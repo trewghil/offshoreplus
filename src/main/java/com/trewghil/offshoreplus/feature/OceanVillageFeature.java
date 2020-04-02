@@ -93,7 +93,7 @@ class OceanVillageStart extends StructureStart {
             new RuleStructureProcessor(
                     ImmutableList.of(
                             new StructureProcessorRule(
-                                    new RandomBlockMatchRuleTest(Blocks.OAK_PLANKS, 0.3f),
+                                    new RandomBlockMatchRuleTest(Blocks.OAK_PLANKS, 0.4f),
                                     AlwaysTrueRuleTest.INSTANCE,
                                     Blocks.SPRUCE_PLANKS.getDefaultState()
                             )
