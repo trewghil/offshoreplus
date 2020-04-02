@@ -8,7 +8,9 @@ import com.trewghil.offshoreplus.item.OffshoreItems;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStep;
+import net.minecraft.world.gen.ProbabilityConfig;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
 
@@ -33,7 +35,15 @@ public class OffshorePlus implements ModInitializer {
 
 		Registry.BIOME.stream().forEach(biome -> {
 			biome.addFeature(GenerationStep.Feature.SURFACE_STRUCTURES, OffshoreFeatures.OCEAN_VILLAGE_FEATURE.configure(new DefaultFeatureConfig()));
+
 			biome.addStructureFeature(OffshoreFeatures.OCEAN_VILLAGE_FEATURE.configure(new DefaultFeatureConfig()));
+		});
+
+		Registry.BIOME.stream().filter(biome ->
+			biome != OffshoreBiomes.FRACTURED_SEA
+		).forEach(biome -> {
+			biome.addCarver(GenerationStep.Carver.LIQUID, Biome.configureCarver(OffshoreCarvers.TRENCH_CAVE, new ProbabilityConfig(0.0f)));
+			biome.addCarver(GenerationStep.Carver.LIQUID, Biome.configureCarver(OffshoreCarvers.TRENCH, new ProbabilityConfig(0.0f)));
 		});
 	}
 }

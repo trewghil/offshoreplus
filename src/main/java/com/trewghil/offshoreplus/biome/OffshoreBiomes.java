@@ -2,6 +2,7 @@ package com.trewghil.offshoreplus.biome;
 
 import com.trewghil.offshoreplus.OffshorePlus;
 import net.fabricmc.fabric.api.biomes.v1.OverworldBiomes;
+import net.fabricmc.fabric.api.biomes.v1.OverworldClimate;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
@@ -15,7 +16,11 @@ public class OffshoreBiomes {
     }
 
     public static void init() {
-        OverworldBiomes.addBiomeVariant(Biomes.OCEAN, OffshoreBiomes.FRACTURED_SEA, 0.33);
+        OverworldBiomes.addContinentalBiome(FRACTURED_SEA, OverworldClimate.TEMPERATE, 2);
+        OverworldBiomes.addContinentalBiome(FRACTURED_SEA, OverworldClimate.COOL, 2);
+
+        OverworldBiomes.setRiverBiome(FRACTURED_SEA, null);
+        OverworldBiomes.addEdgeBiome(FRACTURED_SEA, Biomes.COLD_OCEAN, 1);
     }
 
 }

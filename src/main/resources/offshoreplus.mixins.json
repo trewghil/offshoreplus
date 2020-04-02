@@ -4,7 +4,8 @@
   "package": "com.trewghil.offshoreplus.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "LocateCommandMixin"
+    "LocateCommandMixin",
+    "PlayerEntityMixin"
   ],
   "client": [
   ],

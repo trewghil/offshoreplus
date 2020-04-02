@@ -5,6 +5,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.gen.ProbabilityConfig;
@@ -30,10 +31,10 @@ public class TrenchCaveCarver extends UnderwaterCaveCarver {
 
     @Override
     protected boolean carveAtPoint(Chunk chunk, Function<BlockPos, Biome> posToBiome, BitSet carvingMask, Random random, BlockPos.Mutable mutable, BlockPos.Mutable mutable2, BlockPos.Mutable mutable3, int seaLevel, int mainChunkX, int mainChunkZ, int x, int z, int relativeX, int y, int relativeZ, AtomicBoolean foundSurface) {
-        return carveAtPoint(this, chunk, carvingMask, random, mutable, seaLevel, mainChunkX, mainChunkZ, x, z, relativeX, y, relativeZ);
+        return carveAtPoint(this, chunk, carvingMask, random, mutable, seaLevel, mainChunkX, mainChunkZ, x, z, relativeX, y, relativeZ, foundSurface, mutable3, posToBiome);
     }
 
-    protected static boolean carveAtPoint(Carver<?> carver, Chunk chunk, BitSet mask, Random random, BlockPos.Mutable pos, int seaLevel, int mainChunkX, int mainChunkZ, int x, int z, int relativeX, int y, int relativeZ) {
+    protected static boolean carveAtPoint(Carver<?> carver, Chunk chunk, BitSet mask, Random random, BlockPos.Mutable pos, int seaLevel, int mainChunkX, int mainChunkZ, int x, int z, int relativeX, int y, int relativeZ, AtomicBoolean foundSurface, BlockPos.Mutable mutable3, Function<BlockPos, Biome> posToBiome) {
         if (y >= seaLevel) {
             return false;
         } else {
@@ -43,12 +44,10 @@ public class TrenchCaveCarver extends UnderwaterCaveCarver {
             } else {
                 mask.set(i);
                 pos.set(x, y, z);
-                //BlockState blockState = chunk.getBlockState(pos);
-                if (false) { //!carver.canAlwaysCarveBlock(blockState)
-                    return false;
-                } else if (y == 4) {
+
+                if (y == 4) {
                     float f = random.nextFloat();
-                    if ((double)f < 0.25D) {
+                    if ((double) f < 0.1D) {
                         chunk.setBlockState(pos, Blocks.MAGMA_BLOCK.getDefaultState(), false);
                         chunk.getBlockTickScheduler().schedule(pos, Blocks.MAGMA_BLOCK, 0);
                     } else {
@@ -60,6 +59,18 @@ public class TrenchCaveCarver extends UnderwaterCaveCarver {
                     chunk.setBlockState(pos, Blocks.LAVA.getDefaultState(), false);
                     return false;
                 } else {
+                    chunk.setBlockState(pos, WATER.getBlockState(), false);
+                    chunk.getFluidTickScheduler().schedule(pos, WATER.getFluid(), 0);
+
+                    if (foundSurface.get()) {
+                        mutable3.set((Vec3i)pos).setOffset(Direction.DOWN);
+                        if (chunk.getBlockState(mutable3).getBlock() == Blocks.DIRT) {
+                            chunk.setBlockState(mutable3, ((Biome)posToBiome.apply(pos)).getSurfaceConfig().getTopMaterial(), false);
+                        }
+                    }
+
+                    return true;
+                    /*
                     boolean bl = false;
                     Iterator var16 = Direction.Type.HORIZONTAL.iterator();
 
@@ -82,7 +93,10 @@ public class TrenchCaveCarver extends UnderwaterCaveCarver {
                     } else {
                         return true;
                     }
+
+                     */
                 }
+
             }
         }
     }
