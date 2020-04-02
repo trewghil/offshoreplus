@@ -28,7 +28,6 @@ import net.minecraft.world.gen.feature.AbstractTempleFeature;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.StructureFeature;
 
-import java.util.List;
 import java.util.Random;
 import java.util.function.Function;
 
