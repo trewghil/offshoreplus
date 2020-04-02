@@ -8,14 +8,14 @@ import net.minecraft.world.biome.Biomes;
 
 public class OffshoreBiomes {
 
-    public static final Biome DEEP_SEA_TRENCH = Registry.register(Registry.BIOME, OffshorePlus.identify("deep_sea_trench"), new DeepSeaTrenchBiome());
+    public static final Biome FRACTURED_SEA = Registry.register(Registry.BIOME, OffshorePlus.identify("fractured_sea"), new FracturedSeaBiome());
 
     public OffshoreBiomes() {
 
     }
 
     public static void init() {
-        OverworldBiomes.addBiomeVariant(Biomes.OCEAN, OffshoreBiomes.DEEP_SEA_TRENCH, 0.33);
+        OverworldBiomes.addBiomeVariant(Biomes.OCEAN, OffshoreBiomes.FRACTURED_SEA, 0.33);
     }
 
 }

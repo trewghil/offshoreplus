@@ -12,9 +12,9 @@ import net.minecraft.world.gen.decorator.DecoratorConfig;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.surfacebuilder.SurfaceBuilder;
 
-public class DeepSeaTrenchBiome extends Biome {
+public class FracturedSeaBiome extends Biome {
 
-    public DeepSeaTrenchBiome() {
+    public FracturedSeaBiome() {
         super(new Biome.Settings().configureSurfaceBuilder(SurfaceBuilder.DEFAULT, SurfaceBuilder.GRASS_CONFIG).precipitation(Biome.Precipitation.RAIN).category(Category.OCEAN).depth(-1.1F).scale(0.1F).temperature(0.6F).downfall(0.7F).waterColor(2181828).waterFogColor(329011).parent((String)null));
 
         this.addStructureFeature(Feature.OCEAN_RUIN.configure(new OceanRuinFeatureConfig(OceanRuinFeature.BiomeType.COLD, 0.3F, 0.9F)));
