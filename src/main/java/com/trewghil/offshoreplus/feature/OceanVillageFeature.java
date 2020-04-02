@@ -5,12 +5,18 @@ import com.mojang.datafixers.Dynamic;
 import com.mojang.datafixers.util.Pair;
 import com.trewghil.offshoreplus.OffshorePlus;
 import com.trewghil.offshoreplus.feature.generators.OceanVillageFenceGenerator;
+import net.minecraft.block.Blocks;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.structure.*;
 import net.minecraft.structure.pool.SinglePoolElement;
 import net.minecraft.structure.pool.StructurePool;
 import net.minecraft.structure.pool.StructurePoolBasedGenerator;
 import net.minecraft.structure.pool.StructurePoolElement;
+import net.minecraft.structure.processor.RuleStructureProcessor;
+import net.minecraft.structure.processor.StructureProcessor;
+import net.minecraft.structure.processor.StructureProcessorRule;
+import net.minecraft.structure.rule.AlwaysTrueRuleTest;
+import net.minecraft.structure.rule.RandomBlockMatchRuleTest;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockBox;
@@ -22,6 +28,7 @@ import net.minecraft.world.gen.feature.AbstractTempleFeature;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.StructureFeature;
 
+import java.util.List;
 import java.util.Random;
 import java.util.function.Function;
 
@@ -83,13 +90,25 @@ class OceanVillageStart extends StructureStart {
         this.children.add(fenceGenerator);
     }
 
+    private static final ImmutableList<StructureProcessor> WET_WOOD_PROCESSOR = ImmutableList.of(
+            new RuleStructureProcessor(
+                    ImmutableList.of(
+                            new StructureProcessorRule(
+                                    new RandomBlockMatchRuleTest(Blocks.OAK_PLANKS, 0.3f),
+                                    AlwaysTrueRuleTest.INSTANCE,
+                                    Blocks.SPRUCE_PLANKS.getDefaultState()
+                            )
+                    )
+            )
+    );
+
     static {
         StructurePoolBasedGenerator.REGISTRY.add(
                 new StructurePool(
                         START,
                         EMPTY,
                         ImmutableList.of(
-                                Pair.of(new SinglePoolElement("offshoreplus:ocean_village/center"), 1)
+                                Pair.of(new SinglePoolElement("offshoreplus:ocean_village/center", WET_WOOD_PROCESSOR), 1)
                         ),
                         StructurePool.Projection.RIGID
                 )
@@ -100,10 +119,10 @@ class OceanVillageStart extends StructureStart {
                         ANY,
                         TERMINATORS,
                         ImmutableList.of(
-                                Pair.of(new SinglePoolElement("offshoreplus:ocean_village/plat_1"), 1),
-                                Pair.of(new SinglePoolElement("offshoreplus:ocean_village/plat_2"), 1),
-                                Pair.of(new SinglePoolElement("offshoreplus:ocean_village/plat_3"), 1),
-                                Pair.of(new SinglePoolElement("offshoreplus:ocean_village/plat_4"), 1)
+                                Pair.of(new SinglePoolElement("offshoreplus:ocean_village/plat_1", WET_WOOD_PROCESSOR), 1),
+                                Pair.of(new SinglePoolElement("offshoreplus:ocean_village/plat_2", WET_WOOD_PROCESSOR), 1),
+                                Pair.of(new SinglePoolElement("offshoreplus:ocean_village/plat_3", WET_WOOD_PROCESSOR), 1),
+                                Pair.of(new SinglePoolElement("offshoreplus:ocean_village/plat_4", WET_WOOD_PROCESSOR), 1)
                         ),
                         StructurePool.Projection.RIGID
                 )
@@ -114,9 +133,9 @@ class OceanVillageStart extends StructureStart {
                         TERMINATORS,
                         EMPTY,
                         ImmutableList.of(
-                                Pair.of(new SinglePoolElement("offshoreplus:ocean_village/plat_2"), 1),
-                                Pair.of(new SinglePoolElement("offshoreplus:ocean_village/dock_1"), 2),
-                                Pair.of(new SinglePoolElement("offshoreplus:ocean_village/dock_2"), 2)
+                                Pair.of(new SinglePoolElement("offshoreplus:ocean_village/plat_2", WET_WOOD_PROCESSOR), 1),
+                                Pair.of(new SinglePoolElement("offshoreplus:ocean_village/dock_1", WET_WOOD_PROCESSOR), 2),
+                                Pair.of(new SinglePoolElement("offshoreplus:ocean_village/dock_2", WET_WOOD_PROCESSOR), 2)
                         ),
                         StructurePool.Projection.RIGID
                 )
