@@ -3,6 +3,7 @@ package com.trewghil.offshoreplus;
 import com.trewghil.offshoreplus.biome.OffshoreBiomes;
 import com.trewghil.offshoreplus.biome.carvers.OffshoreCarvers;
 import com.trewghil.offshoreplus.block.OffshoreBlocks;
+import com.trewghil.offshoreplus.entity.effect.OffshoreStatusEffects;
 import com.trewghil.offshoreplus.feature.OffshoreFeatures;
 import com.trewghil.offshoreplus.item.OffshoreItems;
 import net.fabricmc.api.ModInitializer;
@@ -31,6 +32,12 @@ public class OffshorePlus implements ModInitializer {
 		OffshoreBiomes.init();
 		OffshoreCarvers.init();
 
+		OffshoreStatusEffects.init();
+
+		updateBiomes();
+	}
+
+	private void updateBiomes() {
 		Feature.STRUCTURES.put("ocean_village", OffshoreFeatures.OCEAN_VILLAGE_FEATURE);
 
 		Registry.BIOME.stream().forEach(biome -> {
@@ -40,7 +47,7 @@ public class OffshorePlus implements ModInitializer {
 		});
 
 		Registry.BIOME.stream().filter(biome ->
-			biome != OffshoreBiomes.FRACTURED_SEA
+				biome != OffshoreBiomes.FRACTURED_SEA
 		).forEach(biome -> {
 			biome.addCarver(GenerationStep.Carver.LIQUID, Biome.configureCarver(OffshoreCarvers.TRENCH_CAVE, new ProbabilityConfig(0.0f)));
 			biome.addCarver(GenerationStep.Carver.LIQUID, Biome.configureCarver(OffshoreCarvers.TRENCH, new ProbabilityConfig(0.0f)));
