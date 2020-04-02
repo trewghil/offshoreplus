@@ -1,5 +1,7 @@
 package com.trewghil.offshoreplus;
 
+import com.trewghil.offshoreplus.biome.OffshoreBiomes;
+import com.trewghil.offshoreplus.biome.carvers.OffshoreCarvers;
 import com.trewghil.offshoreplus.block.OffshoreBlocks;
 import com.trewghil.offshoreplus.feature.OffshoreFeatures;
 import com.trewghil.offshoreplus.item.OffshoreItems;
@@ -22,7 +24,10 @@ public class OffshorePlus implements ModInitializer {
 	public void onInitialize() {
 		OffshoreBlocks.init();
 		OffshoreItems.init();
+
 		OffshoreFeatures.init();
+		OffshoreBiomes.init();
+		OffshoreCarvers.init();
 
 		Feature.STRUCTURES.put("ocean_village", OffshoreFeatures.OCEAN_VILLAGE_FEATURE);
 
