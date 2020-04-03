@@ -24,19 +24,21 @@ public class PlayerEntityMixin {
     @Inject(method = "tick", at = @At("HEAD"))
     private void statusEffectListener(CallbackInfo info) {
 
+        PlayerEntity player = ((PlayerEntity) (Object) this);
+
         if(tickCount == 20) {
 
-            if (((PlayerEntity) (Object) this).getBlockPos().getY() < 40) {
+            if (player.getBlockPos().getY() < 40) {
 
-                Biome biome = ((PlayerEntity) (Object) this).getEntityWorld().getBiome(((PlayerEntity) (Object) this).getBlockPos());
-                BlockState block = ((PlayerEntity) (Object) this).getBlockState();
+                Biome biome = player.getEntityWorld().getBiome(player.getBlockPos());
+                BlockState block = player.getBlockState();
 
-                if (biome == OffshoreBiomes.FRACTURED_SEA && (block.getBlock() == Blocks.WATER || block.getBlock() == Blocks.BUBBLE_COLUMN) && !((PlayerEntity) (Object) this).hasStatusEffect(StatusEffects.CONDUIT_POWER)) {
+                if (biome == OffshoreBiomes.FRACTURED_SEA && (block.getBlock() == Blocks.WATER || block.getBlock() == Blocks.BUBBLE_COLUMN) && !player.hasStatusEffect(StatusEffects.CONDUIT_POWER)) {
 
-                    ((PlayerEntity) (Object) this).addStatusEffect(new StatusEffectInstance(OffshoreStatusEffects.PRESSURIZED, 420, 0));
+                    player.addStatusEffect(new StatusEffectInstance(OffshoreStatusEffects.PRESSURIZED, 420, 0));
                 }
             } else {
-                ((PlayerEntity) (Object) this).removeStatusEffect(OffshoreStatusEffects.PRESSURIZED);
+                player.removeStatusEffect(OffshoreStatusEffects.PRESSURIZED);
             }
 
             tickCount = 0;
