@@ -12,12 +12,16 @@ public class OffshoreStatusEffect extends StatusEffect {
     }
 
     @Override
+    public boolean canApplyUpdateEffect(int duration, int amplifier) {
+        return true;
+    }
+
+    @Override
     public void applyUpdateEffect(LivingEntity entity, int amplifier) {
         if (this == OffshoreStatusEffects.PRESSURIZED) {
-            entity.damage(DamageSource.MAGIC, 1.0F);
+            entity.damage(DamageSource.GENERIC, 1.0F);
         } else {
-            System.out.println(this.toString());
+            //System.out.println(this.toString());
         }
-
     }
 }
