@@ -6,6 +6,7 @@ import com.trewghil.offshoreplus.entity.effect.OffshoreStatusEffects;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.biome.Biome;
 import org.spongepowered.asm.mixin.Mixin;
@@ -30,7 +31,7 @@ public class PlayerEntityMixin {
                 Biome biome = ((PlayerEntity) (Object) this).getEntityWorld().getBiome(((PlayerEntity) (Object) this).getBlockPos());
                 BlockState block = ((PlayerEntity) (Object) this).getBlockState();
 
-                if (biome == OffshoreBiomes.FRACTURED_SEA && (block.getBlock() == Blocks.WATER || block.getBlock() == Blocks.BUBBLE_COLUMN)) {
+                if (biome == OffshoreBiomes.FRACTURED_SEA && (block.getBlock() == Blocks.WATER || block.getBlock() == Blocks.BUBBLE_COLUMN) && !((PlayerEntity) (Object) this).hasStatusEffect(StatusEffects.CONDUIT_POWER)) {
 
                     ((PlayerEntity) (Object) this).addStatusEffect(new StatusEffectInstance(OffshoreStatusEffects.PRESSURIZED, 420, 0));
                 }
