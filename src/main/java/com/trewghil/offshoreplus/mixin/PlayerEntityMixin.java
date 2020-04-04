@@ -1,10 +1,7 @@
 package com.trewghil.offshoreplus.mixin;
 
 import com.trewghil.offshoreplus.biome.OffshoreBiomes;
-import com.trewghil.offshoreplus.entity.effect.OffshoreStatusEffect;
 import com.trewghil.offshoreplus.entity.effect.OffshoreStatusEffects;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
@@ -31,9 +28,8 @@ public class PlayerEntityMixin {
             if (player.getBlockPos().getY() < 40) {
 
                 Biome biome = player.getEntityWorld().getBiome(player.getBlockPos());
-                BlockState block = player.getBlockState();
 
-                if (biome == OffshoreBiomes.FRACTURED_SEA && (block.getBlock() == Blocks.WATER || block.getBlock() == Blocks.BUBBLE_COLUMN) && !player.hasStatusEffect(StatusEffects.CONDUIT_POWER)) {
+                if ((biome == OffshoreBiomes.FRACTURED_SEA || biome.getCategory() == Biome.Category.OCEAN || biome.getCategory() == Biome.Category.BEACH) && player.isSubmergedInWater() && !player.hasStatusEffect(StatusEffects.CONDUIT_POWER)) {
 
                     player.addStatusEffect(new StatusEffectInstance(OffshoreStatusEffects.PRESSURIZED, 420, 0));
                 }

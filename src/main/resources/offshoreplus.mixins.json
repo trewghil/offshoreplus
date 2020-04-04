@@ -6,7 +6,8 @@
   "mixins": [
     "LocateCommandMixin",
     "PlayerEntityMixin",
-    "ConduitBlockEntityMixin"
+    "ConduitBlockEntityMixin",
+    "BiomeLayersMixin"
   ],
   "client": [
   ],
