@@ -3,6 +3,8 @@ package com.trewghil.offshoreplus;
 import com.trewghil.offshoreplus.biome.OffshoreBiomes;
 import com.trewghil.offshoreplus.biome.carvers.OffshoreCarvers;
 import com.trewghil.offshoreplus.block.OffshoreBlocks;
+import com.trewghil.offshoreplus.client.render.entity.OffshoreEntityRenderers;
+import com.trewghil.offshoreplus.entity.OffshoreEntities;
 import com.trewghil.offshoreplus.entity.effect.OffshoreStatusEffects;
 import com.trewghil.offshoreplus.feature.OffshoreFeatures;
 import com.trewghil.offshoreplus.item.OffshoreItems;
@@ -27,11 +29,13 @@ public class OffshorePlus implements ModInitializer {
 	public void onInitialize() {
 		OffshoreBlocks.init();
 		OffshoreItems.init();
+		OffshoreEntities.init();
 
 		OffshoreFeatures.init();
 		OffshoreBiomes.init();
 		OffshoreCarvers.init();
 
+		OffshoreEntityRenderers.init();
 		OffshoreStatusEffects.init();
 
 		updateBiomes();

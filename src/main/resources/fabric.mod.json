@@ -16,6 +16,9 @@
   "entrypoints": {
     "main": [
       "com.trewghil.offshoreplus.OffshorePlus"
+    ],
+    "client": [
+      "com.trewghil.offshoreplus.OffshorePlusClient"
     ]
   },
   "mixins": [
