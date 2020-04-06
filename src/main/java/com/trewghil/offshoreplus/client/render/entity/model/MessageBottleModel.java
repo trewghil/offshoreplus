@@ -1,11 +1,15 @@
 package com.trewghil.offshoreplus.client.render.entity.model;
 
 import com.google.common.collect.ImmutableList;
+import com.trewghil.offshoreplus.entity.MessageBottleEntity;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.entity.model.CompositeEntityModel;
 import net.minecraft.entity.Entity;
 
-public class MessageBottleModel<T extends Entity> extends CompositeEntityModel<T> {
+@Environment(EnvType.CLIENT)
+public class MessageBottleModel extends CompositeEntityModel<MessageBottleEntity> {
 	private final ModelPart bottle;
 
 	public MessageBottleModel() {
@@ -22,7 +26,7 @@ public class MessageBottleModel<T extends Entity> extends CompositeEntityModel<T
 	}
 
 	@Override
-	public void setAngles(T entity, float limbAngle, float limbDistance, float customAngle, float headYaw, float headPitch) {
+	public void setAngles(MessageBottleEntity entity, float limbAngle, float limbDistance, float customAngle, float headYaw, float headPitch) {
 		this.bottle.yaw = headYaw;
 		this.bottle.pitch = headPitch;
 	}

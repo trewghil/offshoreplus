@@ -2,6 +2,9 @@ package com.trewghil.offshoreplus.mixin;
 
 import com.trewghil.offshoreplus.biome.OffshoreBiomes;
 import com.trewghil.offshoreplus.entity.effect.OffshoreStatusEffects;
+import com.trewghil.offshoreplus.item.OffshoreItems;
+import dev.emi.trinkets.api.TrinketComponent;
+import dev.emi.trinkets.api.TrinketsApi;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
@@ -31,7 +34,13 @@ public class PlayerEntityMixin {
 
                 if ((biome == OffshoreBiomes.FRACTURED_SEA || biome.getCategory() == Biome.Category.OCEAN || biome.getCategory() == Biome.Category.BEACH) && player.isSubmergedInWater() && !player.hasStatusEffect(StatusEffects.CONDUIT_POWER)) {
 
-                    player.addStatusEffect(new StatusEffectInstance(OffshoreStatusEffects.PRESSURIZED, 420, 0));
+                    TrinketComponent trinket = TrinketsApi.getTrinketComponent(player);
+
+                    if(!trinket.getStack("chest:necklace").getItem().equals(OffshoreItems.AMULET_OF_STABILIZATION)) {
+                        player.addStatusEffect(new StatusEffectInstance(OffshoreStatusEffects.PRESSURIZED, 420, 0));
+                    } else {
+                        player.removeStatusEffect(OffshoreStatusEffects.PRESSURIZED);
+                    }
                 }
             } else {
                 player.removeStatusEffect(OffshoreStatusEffects.PRESSURIZED);

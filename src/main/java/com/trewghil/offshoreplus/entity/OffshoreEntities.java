@@ -13,7 +13,7 @@ public class OffshoreEntities {
             Registry.register(
                     Registry.ENTITY_TYPE,
                     OffshorePlus.identify("message_in_a_bottle"),
-                    FabricEntityTypeBuilder.<MessageBottleEntity>create(EntityCategory.MISC, MessageBottleEntity::new).size(EntityDimensions.fixed(0.5f, 0.5f)).build()
+                    FabricEntityTypeBuilder.<MessageBottleEntity>create(EntityCategory.CREATURE, (EntityType.EntityFactory<MessageBottleEntity>) MessageBottleEntity::new).size(EntityDimensions.fixed(0.5f, 0.5f)).build()
             );
 
     public OffshoreEntities() {

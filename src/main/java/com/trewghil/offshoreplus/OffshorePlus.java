@@ -8,10 +8,14 @@ import com.trewghil.offshoreplus.entity.OffshoreEntities;
 import com.trewghil.offshoreplus.entity.effect.OffshoreStatusEffects;
 import com.trewghil.offshoreplus.feature.OffshoreFeatures;
 import com.trewghil.offshoreplus.item.OffshoreItems;
+import dev.emi.trinkets.api.SlotGroups;
+import dev.emi.trinkets.api.Slots;
+import dev.emi.trinkets.api.TrinketSlots;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.ProbabilityConfig;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
@@ -38,11 +42,14 @@ public class OffshorePlus implements ModInitializer {
 		OffshoreEntityRenderers.init();
 		OffshoreStatusEffects.init();
 
+		TrinketSlots.addSlot(SlotGroups.CHEST, Slots.NECKLACE, new Identifier("trinkets", "textures/item/empty_trinket_slot_necklace.png"));
+
 		updateBiomes();
 	}
 
 	private void updateBiomes() {
-		Feature.STRUCTURES.put("ocean_village", OffshoreFeatures.OCEAN_VILLAGE_FEATURE);
+		//Biomes.BEACH.addFeature(GenerationStep.Feature.VEGETAL_DECORATION, OffshoreFeatures.MESSAGE_BOTTLE_FEATURE.configure(new DefaultFeatureConfig()));
+		//Biomes.BEACH.getEntitySpawnList(OffshoreEntities.MESSAGE_BOTTLE.getCategory()).add(new Biome.SpawnEntry(OffshoreEntities.MESSAGE_BOTTLE, 10, 1, 1));
 
 		Registry.BIOME.stream().forEach(biome -> {
 			biome.addFeature(GenerationStep.Feature.SURFACE_STRUCTURES, OffshoreFeatures.OCEAN_VILLAGE_FEATURE.configure(new DefaultFeatureConfig()));

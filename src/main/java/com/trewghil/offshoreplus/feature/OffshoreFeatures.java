@@ -5,6 +5,7 @@ import com.trewghil.offshoreplus.feature.generators.OceanVillageFenceGenerator;
 import net.minecraft.structure.StructurePieceType;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
+import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.StructureFeature;
 
 public class OffshoreFeatures {
@@ -38,7 +39,7 @@ public class OffshoreFeatures {
     }
 
     public static void init() {
-
+        Feature.STRUCTURES.put("ocean_village", OffshoreFeatures.OCEAN_VILLAGE_FEATURE);
     }
 
 }
