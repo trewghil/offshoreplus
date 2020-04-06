@@ -1,6 +1,7 @@
 package com.trewghil.offshoreplus.biome;
 
 import com.trewghil.offshoreplus.biome.carvers.OffshoreCarvers;
+import com.trewghil.offshoreplus.block.OffshoreBlocks;
 import net.minecraft.entity.EntityCategory;
 import net.minecraft.entity.EntityType;
 import net.minecraft.world.biome.Biome;
@@ -9,6 +10,7 @@ import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.ProbabilityConfig;
 import net.minecraft.world.gen.decorator.Decorator;
 import net.minecraft.world.gen.decorator.DecoratorConfig;
+import net.minecraft.world.gen.decorator.RangeDecoratorConfig;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.surfacebuilder.SurfaceBuilder;
 
@@ -20,15 +22,26 @@ public class FracturedSeaBiome extends Biome {
         this.addStructureFeature(Feature.OCEAN_RUIN.configure(new OceanRuinFeatureConfig(OceanRuinFeature.BiomeType.COLD, 0.3F, 0.9F)));
         this.addStructureFeature(Feature.MINESHAFT.configure(new MineshaftFeatureConfig(0.004D, MineshaftFeature.Type.NORMAL)));
         this.addStructureFeature(Feature.SHIPWRECK.configure(new ShipwreckFeatureConfig(false)));
-        //DefaultBiomeFeatures.addOceanCarvers(this);
 
         this.addCarver(GenerationStep.Carver.LIQUID, Biome.configureCarver(OffshoreCarvers.TRENCH, new ProbabilityConfig(0.2F)));
         this.addCarver(GenerationStep.Carver.LIQUID, Biome.configureCarver(OffshoreCarvers.TRENCH_CAVE, new ProbabilityConfig(0.2f)));
 
+        this.addFeature(GenerationStep.Feature.UNDERGROUND_ORES, Feature.ORE.configure(
+                        new OreFeatureConfig(
+                                OreFeatureConfig.Target.NATURAL_STONE,
+                                OffshoreBlocks.VORAGITE_ORE.getDefaultState(),
+                                6
+                        )).createDecoratedFeature(
+                        Decorator.COUNT_RANGE.configure(new RangeDecoratorConfig(
+                                6, //Number of veins per chunk
+                                0, //Bottom Offset
+                                0, //Min y level
+                                14 //Max y level
+                        ))));
+
         DefaultBiomeFeatures.addDefaultStructures(this);
         DefaultBiomeFeatures.addDefaultLakes(this);
         DefaultBiomeFeatures.addDungeons(this);
-        //DefaultBiomeFeatures.addMineables(this);
         DefaultBiomeFeatures.addDefaultOres(this);
         DefaultBiomeFeatures.addDefaultDisks(this);
         DefaultBiomeFeatures.addWaterBiomeOakTrees(this);

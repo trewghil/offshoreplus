@@ -18,7 +18,7 @@ public class BiomeLayersMixin {
 
     @ModifyVariable(
             method = "build(Lnet/minecraft/world/level/LevelGeneratorType;Lnet/minecraft/world/gen/chunk/OverworldChunkGeneratorConfig;Ljava/util/function/LongFunction;)Lnet/minecraft/world/biome/layer/util/LayerFactory;",
-            name = "layerFactory4",
+            ordinal = 3,
             at = @At(
                     value = "INVOKE_ASSIGN",
                     slice = "Lnet/minecraft/world/biome/layer/SetBaseBiomesLayer;<init>(Lnet/minecraft/world/level/LevelGeneratorType;I)V",

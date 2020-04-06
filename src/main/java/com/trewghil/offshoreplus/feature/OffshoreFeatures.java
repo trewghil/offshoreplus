@@ -3,6 +3,7 @@ package com.trewghil.offshoreplus.feature;
 import com.trewghil.offshoreplus.OffshorePlus;
 import com.trewghil.offshoreplus.feature.generators.OceanVillageFenceGenerator;
 import net.minecraft.structure.StructurePieceType;
+import net.minecraft.structure.pool.StructurePoolElementType;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
@@ -33,6 +34,8 @@ public class OffshoreFeatures {
             OffshorePlus.identify("ocean_village_fence"),
             OceanVillageFenceGenerator::new
     );
+
+    public static final StructurePoolElementType VILLAGE_ELEMENT = Registry.register(Registry.STRUCTURE_POOL_ELEMENT, OffshorePlus.identify("village_element"), VillagePoolElement::new);
 
     public OffshoreFeatures() {
 
