@@ -26,9 +26,9 @@ public class BiomeLayersMixin {
             )
     )
     private static <T extends LayerSampler, C extends LayerSampleContext<T>> LayerFactory<T> addBiomeLayer(LayerFactory layerFactory4, LevelGeneratorType generatorType, OverworldChunkGeneratorConfig settings, LongFunction<C> contextProvider) {
-        System.out.println("Fractured Sea biome layer successfully added");
+        layerFactory4 = AddFracturedSeaLayer.INSTANCE.create(contextProvider.apply(1001L), layerFactory4);
 
-        layerFactory4 = AddFracturedSeaLayer.INSTANCE.create((LayerSampleContext)contextProvider.apply(1001L), layerFactory4);
+        System.out.println("Fractured Sea biome layer added");
 
         return layerFactory4;
     }

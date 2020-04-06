@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "offshoreplus:voragite_ore"
+  },
+  "result": "offshoreplus:voragite_ingot",
+  "experience": 1.2,
+  "cookingtime": 200
+}

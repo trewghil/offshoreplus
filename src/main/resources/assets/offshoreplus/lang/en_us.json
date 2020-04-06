@@ -1,8 +1,15 @@
 {
   "item.offshoreplus.buoy": "Buoy",
   "item.offshoreplus.amulet_of_stabilization": "Amulet of Stabilization",
+  "item.offshoreplus.voragite_ingot": "Voragite Ingot",
+  "item.offshoreplus.voragite_ore": "Voragite Ore",
+
+  "block.offshoreplus.buoy": "Buoy",
+  "block.offshoreplus.voragite_ore": "Voragite Ore",
 
   "entity.offshoreplus.message_in_a_bottle": "Message in a Bottle",
+
+  "itemGroup.offshoreplus.offshore_plus_general": "Offshore Plus",
 
   "effect.offshoreplus.pressurized": "High Pressure"
 }
