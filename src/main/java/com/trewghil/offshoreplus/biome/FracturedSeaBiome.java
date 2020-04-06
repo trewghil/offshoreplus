@@ -33,7 +33,7 @@ public class FracturedSeaBiome extends Biome {
                                 6
                         )).createDecoratedFeature(
                         Decorator.COUNT_RANGE.configure(new RangeDecoratorConfig(
-                                6, //Number of veins per chunk
+                                2, //Number of veins per chunk
                                 0, //Bottom Offset
                                 0, //Min y level
                                 14 //Max y level
