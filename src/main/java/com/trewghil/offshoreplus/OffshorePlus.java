@@ -51,8 +51,9 @@ public class OffshorePlus implements ModInitializer {
 
 		Registry.BIOME.stream().forEach(biome -> {
 			biome.addFeature(GenerationStep.Feature.SURFACE_STRUCTURES, OffshoreFeatures.OCEAN_VILLAGE_FEATURE.configure(new DefaultFeatureConfig()));
-
-			biome.addStructureFeature(OffshoreFeatures.OCEAN_VILLAGE_FEATURE.configure(new DefaultFeatureConfig()));
+			if (biome.getCategory() == Biome.Category.OCEAN) {
+				biome.addStructureFeature(OffshoreFeatures.OCEAN_VILLAGE_FEATURE.configure(new DefaultFeatureConfig()));
+			}
 		});
 
 		Registry.BIOME.stream().filter(biome ->

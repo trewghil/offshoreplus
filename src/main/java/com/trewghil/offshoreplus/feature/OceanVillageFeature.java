@@ -51,14 +51,6 @@ public class OceanVillageFeature extends AbstractTempleFeature<DefaultFeatureCon
     }
 
     @Override
-    public boolean shouldStartAt(BiomeAccess biomeAccess, ChunkGenerator<?> chunkGenerator, Random random, int chunkZ, int i, Biome biome) {
-        if(biome.getCategory() == Biome.Category.OCEAN) {
-            return super.shouldStartAt(biomeAccess, chunkGenerator, random, chunkZ, i, biome);
-        }
-        return false;
-    }
-
-    @Override
     public StructureStartFactory getStructureStartFactory() {
         return OceanVillageStart::new;
     }
