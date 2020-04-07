@@ -26,6 +26,6 @@ public class LocateCommandMixin {
     @Inject(method = "register", at = @At(value = "RETURN"))
     private static void onRegister(CommandDispatcher<ServerCommandSource> dispatcher, CallbackInfo info) {
         dispatcher.register(literal("locate").requires(source -> source.hasPermissionLevel(2))
-                .then(literal("Ocean_Village").executes(ctx -> execute(ctx.getSource(), "Ocean_Village"))));
+                .then(literal("Ocean_Village").executes(ctx -> execute(ctx.getSource(), "offshoreplus:ocean_village"))));
     }
 }

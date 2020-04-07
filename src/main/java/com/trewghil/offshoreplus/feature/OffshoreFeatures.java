@@ -42,7 +42,7 @@ public class OffshoreFeatures {
     }
 
     public static void init() {
-        Feature.STRUCTURES.put("ocean_village", OffshoreFeatures.OCEAN_VILLAGE_FEATURE);
+        Feature.STRUCTURES.put("offshoreplus:ocean_village", OffshoreFeatures.OCEAN_VILLAGE_FEATURE);
     }
 
 }
