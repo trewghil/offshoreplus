@@ -2,13 +2,9 @@ package com.trewghil.offshoreplus.client.render.entity.model;
 
 import com.google.common.collect.ImmutableList;
 import com.trewghil.offshoreplus.entity.MessageBottleEntity;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.entity.model.CompositeEntityModel;
-import net.minecraft.entity.Entity;
 
-@Environment(EnvType.CLIENT)
 public class MessageBottleModel extends CompositeEntityModel<MessageBottleEntity> {
 	private final ModelPart bottle;
 

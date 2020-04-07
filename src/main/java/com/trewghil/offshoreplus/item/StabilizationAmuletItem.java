@@ -34,10 +34,11 @@ public class StabilizationAmuletItem extends Item implements ITrinket {
 
     @Override
     public void tick(PlayerEntity player, ItemStack stack) {
-        if (!player.getEntityWorld().isClient) {
-            stack.damage(1, new Random(), (ServerPlayerEntity)player);
+        if (!player.getEntityWorld().isClient && !player.abilities.creativeMode) {
 
-            if(stack.getDamage() >= stack.getMaxDamage()) {
+            stack.damage(1, new Random(), (ServerPlayerEntity) player);
+
+            if (stack.getDamage() >= stack.getMaxDamage()) {
                 stack.decrement(1);
             }
         }

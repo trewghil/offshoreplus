@@ -3,16 +3,9 @@ package com.trewghil.offshoreplus.entity;
 import com.trewghil.offshoreplus.OffshorePlus;
 import com.trewghil.offshoreplus.util.ImplementedInventory;
 import io.netty.buffer.Unpooled;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
-import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.decoration.AbstractDecorationEntity;
-import net.minecraft.entity.mob.AmbientEntity;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.passive.BatEntity;
-import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemStack;
@@ -21,18 +14,12 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Packet;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.*;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldView;
 
 import java.util.Random;
 
-public class MessageBottleEntity extends MobEntity implements ImplementedInventory {
+public class MessageBottleEntity extends AbstractDecorationEntity implements ImplementedInventory {
 
     public static final Identifier ID = OffshorePlus.identify("message_in_a_bottle_entity");
     private final DefaultedList<ItemStack> itemStacks = DefaultedList.ofSize(3, ItemStack.EMPTY);
@@ -44,22 +31,18 @@ public class MessageBottleEntity extends MobEntity implements ImplementedInvento
 
     public MessageBottleEntity(EntityType<MessageBottleEntity> entityType, World world) {
         super(entityType, world);
-        //this.inanimate = true;
-        //randomizePositionAndAngles();
-        System.out.println("CONSTRUCTOR 1 entity at: " + this.getPos().toString());
     }
 
     public MessageBottleEntity(World world, double x, double y, double z, float pitch, float yaw) {
         super(OffshoreEntities.MESSAGE_BOTTLE, world);
-
-        this.setPos(x, y, z);
-        this.setRotation(yaw, pitch);
-
         this.inanimate = true;
-        //randomizePositionAndAngles();
+
+        this.setPos(x, y - 0.1, z);
+        this.setRotation(yaw, pitch);
+        randomizePositionAndAngles();
+
         this.setBoundingBox(new Box(this.getX() - 0.1875D, this.getY() - 0.25D + 0.125D, this.getZ() - 0.1875D, this.getX() + 0.1875D, this.getY() + 0.25D + 0.125D, this.getZ() + 0.1875D));
 
-        System.out.println("SPAWNED NEW ENTITY AT: " + this.getPos().toString());
         if (world.isClient()) {
             this.updateTrackedPosition(this.getX(), this.getY(), this.getZ());
 
@@ -75,22 +58,10 @@ public class MessageBottleEntity extends MobEntity implements ImplementedInvento
     }
 
     @Override
-    public void tick() {
-        super.tick();
-
-        System.out.println(world.isClient() ? "CLIENT" + this.getPos().toString() : "SERVER: " + this.getPos().toString());
-    }
-
-    //@Override
-    //public boolean canSpawn(WorldView world) {
-    //    return true;
-    //}
-
-    @Override
     public boolean isPushable() { return false; }
 
     @Override
-    public boolean interactMob(PlayerEntity player, Hand hand) {
+    public boolean interact(PlayerEntity player, Hand hand) {
 
         if(world.isClient()) {
             return true;
@@ -111,42 +82,29 @@ public class MessageBottleEntity extends MobEntity implements ImplementedInvento
         return itemStacks;
     }
 
-    //@Override
-    //public void fromTag(CompoundTag tag) {
-    //    super.fromTag(tag);
-    //    Inventories.fromTag(tag, itemStacks);
-    //}
-
-    //@Override
-    //public CompoundTag toTag(CompoundTag tag) {
-    //    Inventories.toTag(tag, itemStacks);
-    //    return tag;
-    //    //return super.toTag(tag);
-    //}
-
     @Override
-    public void readCustomDataFromTag(CompoundTag tag) {
+    public void fromTag(CompoundTag tag) {
+        super.fromTag(tag);
         Inventories.fromTag(tag, itemStacks);
     }
 
     @Override
-    public void writeCustomDataToTag(CompoundTag tag) {
+    public CompoundTag toTag(CompoundTag tag) {
         Inventories.toTag(tag, itemStacks);
+        //return tag;
+        return super.toTag(tag);
     }
 
-    //@Override
-    //public void updatePosition(double x, double y, double z) {
-    //    this.setPos(x, y, z);
-    //}
 
     @Override
-    protected void fall(double heightDifference, boolean onGround, BlockState landedState, BlockPos landedPosition) {
+    public void updatePosition(double x, double y, double z) {
+        this.setPos(x, y, z);
     }
 
-    //@Override
-    //protected void updateAttachmentPosition() {
-    //    this.setPos(this.attachmentPos.getX(), this.attachmentPos.getY(), this.attachmentPos.getZ());
-    //}
+    @Override
+    protected void updateAttachmentPosition() {
+        this.setPos(this.attachmentPos.getX(), this.attachmentPos.getY(), this.attachmentPos.getZ());
+    }
 
     @Override
     public float getEyeHeight(EntityPose pose) {
@@ -154,10 +112,10 @@ public class MessageBottleEntity extends MobEntity implements ImplementedInvento
     }
 
 
-    //@Override
-    //protected float getEyeHeight(EntityPose pose, EntityDimensions dimensions) {
-    //    return -0.0625F;
-    //}
+    @Override
+    protected float getEyeHeight(EntityPose pose, EntityDimensions dimensions) {
+        return -0.0625F;
+    }
 
     //@Environment(EnvType.CLIENT)
     //@Override
@@ -165,23 +123,23 @@ public class MessageBottleEntity extends MobEntity implements ImplementedInvento
     //    return distance < 1024.0D;
     //}
 
-    //@Override
-    //public int getWidthPixels() {
-    //    return 4;
-    //}
+    @Override
+    public int getWidthPixels() {
+        return 4;
+    }
 
-    //@Override
-    //public int getHeightPixels() {
-    //    return 12;
-    //}
+    @Override
+    public int getHeightPixels() {
+        return 12;
+    }
 
-    //@Override
+    @Override
     public void onBreak(Entity entity) {
         this.playSound(SoundEvents.BLOCK_GLASS_HIT, 1.0f, 2.0f);
         this.playSound(SoundEvents.BLOCK_SAND_BREAK, 0.8f, 1.0f);
     }
 
-    //@Override
+    @Override
     public void onPlace() {}
 
 

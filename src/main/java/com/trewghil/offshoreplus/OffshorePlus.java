@@ -37,7 +37,6 @@ public class OffshorePlus implements ModInitializer {
 		OffshoreBiomes.init();
 		OffshoreCarvers.init();
 
-		OffshoreEntityRenderers.init();
 		OffshoreStatusEffects.init();
 
 		TrinketSlots.addSlot(SlotGroups.CHEST, Slots.NECKLACE, new Identifier("trinkets", "textures/item/empty_trinket_slot_necklace.png"));
