@@ -97,6 +97,7 @@ class OceanVillageStart extends StructureStart {
 
         OceanVillageFenceGenerator fenceGenerator = new OceanVillageFenceGenerator(this.random, this.boundingBox);
         this.children.add(fenceGenerator);
+        this.boundingBox.encompass(fenceGenerator.getBoundingBox());
     }
 
     @Override

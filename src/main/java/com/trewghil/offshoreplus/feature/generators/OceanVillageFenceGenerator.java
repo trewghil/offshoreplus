@@ -15,6 +15,7 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -24,7 +25,7 @@ public class OceanVillageFenceGenerator extends StructurePieceWithDimensions {
     private List<BlockPos> knownEdgeBlocks = new ArrayList<>();
 
     public OceanVillageFenceGenerator(Random random, BlockBox structureBox) {
-        super(OffshoreFeatures.OCEAN_VILLAGE_FENCE, random, structureBox.minX - 1, 66, structureBox.minZ - 1, structureBox.getBlockCountX() + 1, 0, structureBox.getBlockCountZ() + 1);
+        super(OffshoreFeatures.OCEAN_VILLAGE_FENCE, random, structureBox.minX, 66, structureBox.minZ, structureBox.getBlockCountX(), 0, structureBox.getBlockCountZ());
     }
 
     public OceanVillageFenceGenerator(StructureManager structureManager, CompoundTag compoundTag) {
@@ -42,19 +43,26 @@ public class OceanVillageFenceGenerator extends StructurePieceWithDimensions {
 
                     BlockPos currentPos = new BlockPos(x, this.applyYTransform(o), z);
 
-                    if(isEdgeBlock(currentPos, world, false)) {
-                        knownEdgeBlocks.add(currentPos);
+                    if(!world.getBlockState(currentPos).isAir()) {
+                        if(isEdgeBlock(currentPos, world, false)) {
+                            knownEdgeBlocks.add(currentPos);
 
-                        world.setBlockState(new BlockPos(currentPos.up()), Blocks.OAK_FENCE.getDefaultState(), 2);
-                        world.getChunk(currentPos).markBlockForPostProcessing(currentPos.up());
+                            world.setBlockState(new BlockPos(currentPos.up()), Blocks.OAK_FENCE.getDefaultState(), 2);
+                            world.getChunk(currentPos).markBlockForPostProcessing(currentPos.up());
+                        }
                     }
                 }
             }
         }
 
-        for(BlockPos edge : knownEdgeBlocks) {
-            if(!isEdgeBlock(edge, world, true)) {
-                world.setBlockState(edge.up(), Blocks.AIR.getDefaultState(), 2);
+        Iterator<BlockPos> i = knownEdgeBlocks.iterator();
+        while(i.hasNext()) {
+            BlockPos posToCheck = i.next();
+
+            if(!isEdgeBlock(posToCheck, world, true)) {
+                world.setBlockState(posToCheck.up(), Blocks.AIR.getDefaultState(), 2);
+
+                i.remove();
             }
         }
 
@@ -84,26 +92,14 @@ public class OceanVillageFenceGenerator extends StructurePieceWithDimensions {
                 BlockPos cur = new BlockPos(i, pos.getY(), j);
                 if(cur.equals(pos)) continue;
 
-                for(BlockPos air : knownAirBlocks) {
-                    if(air.equals(cur)) {
-                        isTouchingAir = true;
-                        break found;
-                    }
+                if(knownAirBlocks.contains(cur)) {
+                    isTouchingAir = true;
+                    break found;
                 }
 
-                int heightAtPos = world.getTopPosition(Heightmap.Type.MOTION_BLOCKING, cur).getY();
-
-                if(!world.getChunk(cur).equals(world.getChunk(pos))) {
-
-                    if(heightAtPos <= world.getSeaLevel() + 1) {
-                        isTouchingAir = true;
-                        break found;
-                    }
-                } else {
-                    if(world.getBlockState(cur).isAir()) {
-                        isTouchingAir = true;
-                        break found;
-                    }
+                if(world.getBlockState(cur).isAir()) {
+                    isTouchingAir = true;
+                    break found;
                 }
             }
         }

@@ -17,13 +17,13 @@ import net.minecraft.world.gen.surfacebuilder.SurfaceBuilder;
 public class FracturedSeaBiome extends Biome {
 
     public FracturedSeaBiome() {
-        super(new Biome.Settings().configureSurfaceBuilder(SurfaceBuilder.DEFAULT, SurfaceBuilder.GRASS_CONFIG).precipitation(Biome.Precipitation.RAIN).category(Category.NONE).depth(-1.1F).scale(0.0035f).temperature(0.5F).downfall(1F).waterColor(2181828).waterFogColor(852777).parent((String)null));
+        super(new Biome.Settings().configureSurfaceBuilder(SurfaceBuilder.DEFAULT, SurfaceBuilder.GRASS_CONFIG).precipitation(Biome.Precipitation.RAIN).category(Category.NONE).depth(-1.1F).scale(0.0025f).temperature(0.5F).downfall(1F).waterColor(2181828).waterFogColor(852777).parent((String)null));
 
         this.addStructureFeature(Feature.OCEAN_RUIN.configure(new OceanRuinFeatureConfig(OceanRuinFeature.BiomeType.COLD, 0.3F, 0.9F)));
         this.addStructureFeature(Feature.MINESHAFT.configure(new MineshaftFeatureConfig(0.004D, MineshaftFeature.Type.NORMAL)));
         this.addStructureFeature(Feature.SHIPWRECK.configure(new ShipwreckFeatureConfig(false)));
 
-        this.addCarver(GenerationStep.Carver.LIQUID, Biome.configureCarver(OffshoreCarvers.TRENCH, new ProbabilityConfig(0.2F)));
+        this.addCarver(GenerationStep.Carver.LIQUID, Biome.configureCarver(OffshoreCarvers.TRENCH, new ProbabilityConfig(0.1F)));
         this.addCarver(GenerationStep.Carver.LIQUID, Biome.configureCarver(OffshoreCarvers.TRENCH_CAVE, new ProbabilityConfig(0.2f)));
 
         this.addFeature(GenerationStep.Feature.UNDERGROUND_ORES, Feature.ORE.configure(

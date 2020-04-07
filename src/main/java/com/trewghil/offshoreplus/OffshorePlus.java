@@ -3,7 +3,6 @@ package com.trewghil.offshoreplus;
 import com.trewghil.offshoreplus.biome.OffshoreBiomes;
 import com.trewghil.offshoreplus.biome.carvers.OffshoreCarvers;
 import com.trewghil.offshoreplus.block.OffshoreBlocks;
-import com.trewghil.offshoreplus.client.render.entity.OffshoreEntityRenderers;
 import com.trewghil.offshoreplus.entity.OffshoreEntities;
 import com.trewghil.offshoreplus.entity.effect.OffshoreStatusEffects;
 import com.trewghil.offshoreplus.feature.OffshoreFeatures;
@@ -46,7 +45,6 @@ public class OffshorePlus implements ModInitializer {
 
 	private void updateBiomes() {
 		//Biomes.BEACH.addFeature(GenerationStep.Feature.VEGETAL_DECORATION, OffshoreFeatures.MESSAGE_BOTTLE_FEATURE.configure(new DefaultFeatureConfig()));
-		//Biomes.BEACH.getEntitySpawnList(OffshoreEntities.MESSAGE_BOTTLE.getCategory()).add(new Biome.SpawnEntry(OffshoreEntities.MESSAGE_BOTTLE, 10, 1, 1));
 
 		Registry.BIOME.stream().forEach(biome -> {
 			biome.addFeature(GenerationStep.Feature.SURFACE_STRUCTURES, OffshoreFeatures.OCEAN_VILLAGE_FEATURE.configure(new DefaultFeatureConfig()));
