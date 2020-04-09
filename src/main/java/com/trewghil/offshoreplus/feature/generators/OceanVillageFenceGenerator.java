@@ -12,6 +12,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 
 import java.util.ArrayList;
@@ -36,6 +37,7 @@ public class OceanVillageFenceGenerator extends StructurePieceWithDimensions {
     public boolean generate(IWorld world, ChunkGenerator<?> generator, Random random, BlockBox box, ChunkPos pos) {
 
         int minX = pos.getStartX(), minY = 0, minZ = pos.getStartZ();
+        Chunk currentChunk = world.getChunk(pos.getCenterBlockPos());
 
         for(int o = minY; o <= this.height; ++o) {
             for(int x = minX; x <= pos.getEndX(); ++x) {
@@ -48,7 +50,6 @@ public class OceanVillageFenceGenerator extends StructurePieceWithDimensions {
                             knownEdgeBlocks.add(currentPos);
 
                             world.setBlockState(new BlockPos(currentPos.up()), Blocks.OAK_FENCE.getDefaultState(), 2);
-                            world.getChunk(currentPos).markBlockForPostProcessing(currentPos.up());
                         }
                     }
                 }
@@ -58,6 +59,7 @@ public class OceanVillageFenceGenerator extends StructurePieceWithDimensions {
         Iterator<BlockPos> i = knownEdgeBlocks.iterator();
         while(i.hasNext()) {
             BlockPos posToCheck = i.next();
+            currentChunk.markBlockForPostProcessing(posToCheck.up());
 
             if(!isEdgeBlock(posToCheck, world, true)) {
                 world.setBlockState(posToCheck.up(), Blocks.AIR.getDefaultState(), 2);
@@ -71,13 +73,13 @@ public class OceanVillageFenceGenerator extends StructurePieceWithDimensions {
 
     private boolean isEdgeBlock(BlockPos pos, IWorld world, boolean check) {
 
-        Block block = world.getBlockState(pos).getBlock();
+        BlockState block = world.getBlockState(pos);
         BlockState above = world.getBlockState(pos.up());
 
-        if(block != Blocks.OAK_PLANKS && block != Blocks.SPRUCE_PLANKS) return false;
+        if(block.getBlock() != Blocks.OAK_PLANKS && block.getBlock() != Blocks.SPRUCE_PLANKS) return false;
 
         if(!check) {
-            if (world.getBlockState(pos).isAir()) {
+            if (block.isAir()) {
                 knownAirBlocks.add(pos);
                 return false;
             }
