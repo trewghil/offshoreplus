@@ -13,10 +13,8 @@ public enum AddFracturedSeaLayer implements SouthEastSamplingLayer {
     private static final int DEEP_OCEAN_ID = Registry.BIOME.getRawId(Biomes.DEEP_OCEAN);
     private static final int COLD_OCEAN_ID = Registry.BIOME.getRawId(Biomes.COLD_OCEAN);
 
-    private static final int ID = Registry.BIOME.getRawId(OffshoreBiomes.FRACTURED_SEA);
-
     @Override
     public int sample(LayerRandomnessSource context, int se) {
-        return context.nextInt(10) == 0 && (se == OCEAN_ID || se == COLD_OCEAN_ID || se == DEEP_OCEAN_ID) ? ID : se;
+        return context.nextInt(10) == 0 && (se == OCEAN_ID || se == COLD_OCEAN_ID || se == DEEP_OCEAN_ID) ? Registry.BIOME.getRawId(OffshoreBiomes.FRACTURED_SEA) : se;
     }
 }
